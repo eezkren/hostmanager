@@ -14,7 +14,6 @@ import java.util.List;
 public class StartupLoggingComponent implements InitializingBean {
     private static final String ENV_TARGET_KEY = "envTarget";
     private static final String PERSISTENCE_TARGET_KEY = "persistenceTarget";
-    private static final String ACTIVE_SPRING_PROFILE_KEY = "spring.profiles.active";
     private static final String PERSISTENCE_HOST_KEY = "jdbc.url";
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired

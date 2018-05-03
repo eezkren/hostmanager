@@ -17,8 +17,7 @@ public class HostmanagerContextConfig {
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
-        final PropertySourcesPlaceholderConfigurer pspc = new PropertySourcesPlaceholderConfigurer();
-        return pspc;
+        return new PropertySourcesPlaceholderConfigurer();
     }
 
 }

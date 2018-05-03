@@ -84,8 +84,7 @@ public abstract class AbstractReadOnlyController<T extends IEntity> {
     }
 
     protected final List<T> findAllSortedInternal(final String sortBy, final String sortOrder) {
-        final List<T> resultPage = getService().findAllSorted(sortBy, sortOrder);
-        return resultPage;
+        return getService().findAllSorted(sortBy, sortOrder);
     }
 
     // count
