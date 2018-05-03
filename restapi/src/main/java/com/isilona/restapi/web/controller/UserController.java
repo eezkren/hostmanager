@@ -74,17 +74,6 @@ public class UserController extends AbstractController<User> implements ISorting
         return findOneInternal(id, uriBuilder, response);
     }
 
-//    @RequestMapping(value = "/current", method = RequestMethod.GET)
-//    @ResponseBody
-////    @Secured(Privileges.CAN_USER_READ)
-//    public User current() {
-//        final User currentUser = (User) SpringSecurityUtil.getCurrentUserDetails();
-//        if (currentUser == null) {
-//            return null;
-//        }
-//        return findOneInternal(currentUser.getId());
-//    }
-
     @RequestMapping("/user")
     public User user(final User user) {
         return user;

@@ -23,8 +23,8 @@ public class User implements INameableEntity {
     @Column(nullable = false)
     private String password;
 
-  @Column( /* nullable = false */)
-  private Boolean locked;
+    @Column( /* nullable = false */)
+    private Boolean locked;
 
     // @formatter:off
     @ManyToMany( /* cascade = { CascadeType.REMOVE }, */fetch = FetchType.EAGER)

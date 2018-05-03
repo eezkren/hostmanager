@@ -28,7 +28,7 @@ import java.util.Set;
 public final class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private IUserService UserService;
+    private IUserService userService;
 
     public MyUserDetailsService() {
         super();
@@ -43,7 +43,7 @@ public final class MyUserDetailsService implements UserDetailsService {
     public final UserDetails loadUserByUsername(final String username) {
         Preconditions.checkNotNull(username);
 
-        final User user = UserService.findByName(username);
+        final User user = userService.findByName(username);
         if (user == null) {
             throw new UsernameNotFoundException("Username was not found: " + username);
         }

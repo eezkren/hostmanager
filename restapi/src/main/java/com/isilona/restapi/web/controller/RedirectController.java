@@ -47,7 +47,7 @@ public class RedirectController {
         final HttpHeaders responseHeaders = new org.springframework.http.HttpHeaders();
         responseHeaders.add(HttpHeaders.LOCATION, correctUri);
 
-        final ResponseEntity<Void> redirectResponse = new ResponseEntity<Void>(responseHeaders, HttpStatus.MOVED_PERMANENTLY);
+        final ResponseEntity<Void> redirectResponse = new ResponseEntity<>(responseHeaders, HttpStatus.MOVED_PERMANENTLY);
         return redirectResponse;
     }
 
