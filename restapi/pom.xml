@@ -85,9 +85,9 @@
 
 
         <dependency>
-            <groupId>io.office360</groupId>
+            <groupId>com.isilona</groupId>
             <artifactId>common</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
