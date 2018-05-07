@@ -5,6 +5,7 @@ import {AuthGuard} from './guard/auth.guard';
 import {LoginLayoutComponent} from './ui/layouts/login-layout.component';
 import {LoginComponent} from './ui/login/login.component';
 import {HostListComponent} from './ui/host/host-list.component';
+import {HostComponent} from './ui/host/host.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,17 @@ const routes: Routes = [
         path: 'host',
         component: HostListComponent,
         pathMatch: 'full'
-      }
+      },
+      {
+        path: 'host/new',
+        component: HostComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: 'host/:id',
+        component: HostComponent,
+        pathMatch: 'full'
+      },
     ]
   },
   {

@@ -19,6 +19,7 @@ import {HostListComponent} from './ui/host/host-list.component';
 import {CookieManager} from './cookie.manager';
 import {HostService} from './service/host.service';
 import {TokenInterceptor} from './interceptors/token-interceptor';
+import {HostComponent} from './ui/host/host.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import {TokenInterceptor} from './interceptors/token-interceptor';
     LoginComponent,
     HomeLayoutComponent,
     LoginLayoutComponent,
+    HostComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,79 @@
+<form #hostForm="ngForm" (ngSubmit)="onSubmit()" [hidden]="submitted">
+  <section class="form-block">
+    <label>{{host.id ? 'Update' : 'Add'}} Host Information</label>
+    <div *ngIf="host.id" class="form-group">
+      <label for="hostId">Host ID</label>
+      <input type="text" id="hostId"
+             name="hostId" disabled
+             [(ngModel)]="host.id">
+    </div>
+    <div class="form-group">
+      <label for="hostName">Host name</label>
+      <label for="hostName"
+             aria-haspopup="true"
+             role="tooltip"
+             class="tooltip tooltip-validation tooltip-md"
+             [class.invalid]="hostNameInput.invalid && (hostNameInput.dirty || hostNameInput.touched)">
+        <input type="text" id="hostName" placeholder="Enter host name"
+               required
+               name="hostName"
+               [(ngModel)]="host.name"
+               #hostNameInput="ngModel">
+        <span class="tooltip-content">
+                    Host Name is Required.
+                </span>
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="hostIP">Host IP</label>
+      <label for="hostIP"
+             aria-haspopup="true"
+             role="tooltip"
+             class="tooltip tooltip-validation tooltip-md"
+             [class.invalid]="hostIPInput.invalid && (hostIPInput.dirty || hostIPInput.touched)">
+        <input type="text" id="hostIP" placeholder="Enter host ip"
+               required
+               name="hostIP"
+               [(ngModel)]="host.ip"
+               #hostIPInput="ngModel">
+        <span class="tooltip-content">
+                    Host IP is Required.
+                </span>
+      </label>
+    </div>
+    <button class="btn btn-primary" type="submit"
+            [disabled]="hostForm.form.invalid">{{host.id ? 'Update' : 'Add'}}
+    </button>
+  </section>
+</form>
+
+<div [hidden]="!submitted">
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <table class="table">
+        <thead>
+        <tr>
+          <th colspan="2" class="left">
+            Host Information
+          </th>
+        </tr>
+        </thead>
+        <tbody [ngClass]="{ 'spinner spinner-inline': !hostCreated }">
+        <tr>
+          <td class="left">Host Name</td>
+          <td class="left">{{host.name}}</td>
+        </tr>
+        <tr>
+          <td class="left">Host IP</td>
+          <td class="left">{{host.ip}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-primary" (click)="reSave()">{{host.id ? 'Update' : 'New'}} Host</button>
+    </div>
+  </div>
+</div>
