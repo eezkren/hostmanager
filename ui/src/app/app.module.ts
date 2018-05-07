@@ -16,6 +16,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {HomeLayoutComponent} from './ui/layouts/home-layout.component';
 import {LoginLayoutComponent} from './ui/layouts/login-layout.component';
 import {HostComponent} from './ui/host/host.component';
+import {CookieManager} from './cookie.manager';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import {HostComponent} from './ui/host/host.component';
     AppRoutingModule,
     // other imports here)
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, CookieManager],
   bootstrap: [AppComponent]
 })
 export class AppModule {
