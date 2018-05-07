@@ -3,10 +3,10 @@ import {HostService} from '../../service/host.service';
 
 @Component({
   selector: 'app-host',
-  templateUrl: './host.component.html',
-  styleUrls: ['./host.component.css']
+  templateUrl: './host-list.component.html',
+  styleUrls: ['./host-list.component.css']
 })
-export class HostComponent implements OnInit {
+export class HostListComponent implements OnInit {
 
   hosts: any = {};
 
@@ -28,4 +28,11 @@ export class HostComponent implements OnInit {
     );
   }
 
+  onEdit(host) {
+
+  }
+
+  onDelete(host) {
+
+  }
 }

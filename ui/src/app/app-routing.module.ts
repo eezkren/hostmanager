@@ -4,7 +4,7 @@ import {HomeLayoutComponent} from './ui/layouts/home-layout.component';
 import {AuthGuard} from './guard/auth.guard';
 import {LoginLayoutComponent} from './ui/layouts/login-layout.component';
 import {LoginComponent} from './ui/login/login.component';
-import {HostComponent} from './ui/host/host.component';
+import {HostListComponent} from './ui/host/host-list.component';
 
 const routes: Routes = [
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: 'host',
-        component: HostComponent,
+        component: HostListComponent,
         pathMatch: 'full'
       }
     ]

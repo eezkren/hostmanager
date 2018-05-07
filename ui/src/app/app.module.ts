@@ -15,7 +15,7 @@ import {AuthService} from './service/auth.service';
 import {AppRoutingModule} from './app-routing.module';
 import {HomeLayoutComponent} from './ui/layouts/home-layout.component';
 import {LoginLayoutComponent} from './ui/layouts/login-layout.component';
-import {HostComponent} from './ui/host/host.component';
+import {HostListComponent} from './ui/host/host-list.component';
 import {CookieManager} from './cookie.manager';
 import {HostService} from './service/host.service';
 import {TokenInterceptor} from './interceptors/token-interceptor';
@@ -28,7 +28,7 @@ import {TokenInterceptor} from './interceptors/token-interceptor';
     SidebarComponent,
     TopnavComponent,
     MainComponent,
-    HostComponent,
+    HostListComponent,
     LoginComponent,
     HomeLayoutComponent,
     LoginLayoutComponent,
