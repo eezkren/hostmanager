@@ -2,14 +2,13 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/map'
 import {CookieManager} from '../cookie.manager';
 
 @Injectable()
 export class AuthService {
 
-  AUTHORIZATION = 'trusted-app:secret';
   AUTH_ENDPOINT = 'http://localhost:8082/oauth/token'
   private loggedIn = new BehaviorSubject<boolean>(this.token.hasToken()); // {1}
 
@@ -34,14 +33,7 @@ export class AuthService {
       .set('password', password)
       .set('grant_type', 'password');
 
-    const headers = new HttpHeaders({
-      'Content-type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + btoa(this.AUTHORIZATION),
-      'Accept': 'application/json'
-    });
-
     const options = {
-      headers,
       params,
       withCredentials: true
     };
