@@ -26,4 +26,8 @@ export class CookieManager {
     }
     return false;
   }
+
+  public getToken(): string {
+    return Cookie.get(TOKEN_KEY);
+  }
 }

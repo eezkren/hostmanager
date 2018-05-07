@@ -10,13 +10,15 @@ import {LoginComponent} from './ui/login/login.component';
 import {SidebarComponent} from './ui/nav/sidebar/sidebar.component';
 import {TopnavComponent} from './ui/nav/topnav/topnav.component';
 import {AuthGuard} from './guard/auth.guard';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthService} from './service/auth.service';
 import {AppRoutingModule} from './app-routing.module';
 import {HomeLayoutComponent} from './ui/layouts/home-layout.component';
 import {LoginLayoutComponent} from './ui/layouts/login-layout.component';
 import {HostComponent} from './ui/host/host.component';
 import {CookieManager} from './cookie.manager';
+import {HostService} from './service/host.service';
+import {TokenInterceptor} from './interceptors/token-interceptor';
 
 
 @NgModule({
@@ -39,7 +41,11 @@ import {CookieManager} from './cookie.manager';
     AppRoutingModule,
     // other imports here)
   ],
-  providers: [AuthService, AuthGuard, CookieManager],
+  providers: [AuthService, AuthGuard, CookieManager, HostService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
