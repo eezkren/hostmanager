@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HostService} from '../../service/host.service';
 import {Host} from '../../model/host';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-host',
@@ -13,7 +14,7 @@ export class HostListComponent implements OnInit {
   loading = true;
   total: number;
 
-  constructor(private service: HostService) {
+  constructor(private service: HostService, private router: Router) {
     this.getHosts();
     console.log(this.hosts)
   }
@@ -34,10 +35,17 @@ export class HostListComponent implements OnInit {
   }
 
   onEdit(host) {
-
+    this.router.navigate(['/host/' + host.id]);
   }
 
   onDelete(host) {
 
+    this.service.delete(host.id).subscribe(
+      data => {
+        this.getHosts();
+      },
+      err => console.error(err),
+      () => console.log('deleted host')
+    );
   }
 }

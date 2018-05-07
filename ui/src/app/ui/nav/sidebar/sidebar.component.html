@@ -1,6 +1,6 @@
 <nav>
   <section class="sidenav-content">
-    <a class="nav-link active">List</a>
-    <a class="nav-link">New</a>
+    <a [routerLink]="'/host'" (click)="activateAll()" [ngClass]="{ 'active': activeAll }" class="nav-link">List</a>
+    <a [routerLink]="'/host/new'" (click)="activateNew()" [ngClass]="{ 'active': activeNew }" class="nav-link">New</a>
   </section>
 </nav>

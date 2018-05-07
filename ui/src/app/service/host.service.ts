@@ -27,4 +27,8 @@ export class HostService {
     return this.http.get(this.BASE_URL + 'hosts/' + id);
   }
 
+  delete(id: number) {
+    return this.http.delete(this.BASE_URL + 'hosts/' + id);
+  }
+
 }
