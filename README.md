@@ -11,8 +11,10 @@ it consists 3 projects
   - /hosts?page=1&size=5
 - event listeners for enriching response headers on resource retrieving and creation
 
-#### restapi
+#### auth
 - AUTH Server implementation with spring security and OAuth
+
+#### restapi
 - Resource server exposing the real restapi
 
 #### ui
@@ -20,8 +22,12 @@ it consists 3 projects
 
 ### Build and Run
 - clone the project (git clone https://github.com/isilona/hostmanager.git)
+- build the whole project
+  - /hostmanager mvn clean install
+- run the **auth** project 
+  - find the jar in /hostmanager/auth/target/restapi.jar
+  - run the jar: java -jar restapi.jar
 - build/run the **restapi** project 
-  - /hostmanager mvn clean install 
   - find the jar in /hostmanager/restapi/target/restapi.jar
   - run the jar: java -jar restapi.jar
 - build/run the **ui** project 
