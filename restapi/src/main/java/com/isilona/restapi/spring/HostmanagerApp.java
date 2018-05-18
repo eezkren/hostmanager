@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Import;
         HostmanagerPersistenceJpaConfig.class,
         HostmanagerServiceConfig.class,
         HostmanagerWebConfig.class,
-        HostmanagerAuthorizationConfig.class,
         HostmanagerResourceConfig.class
 }) // @formatter:on
 public class HostmanagerApp extends SpringBootServletInitializer {

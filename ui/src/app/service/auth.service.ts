@@ -9,7 +9,7 @@ import {CookieManager} from '../cookie.manager';
 @Injectable()
 export class AuthService {
 
-  AUTH_ENDPOINT = 'http://localhost:8082/oauth/token'
+  AUTH_ENDPOINT = 'http://localhost:9999/oauth/token'
   private loggedIn = new BehaviorSubject<boolean>(this.token.hasToken()); // {1}
 
   constructor(private router: Router, private http: HttpClient, private token: CookieManager) {
