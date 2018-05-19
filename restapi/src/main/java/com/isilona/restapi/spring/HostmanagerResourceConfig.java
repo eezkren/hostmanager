@@ -30,14 +30,13 @@ public class HostmanagerResourceConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(final HttpSecurity http) throws Exception {
-        // @formatter:off
         http.
-                authorizeRequests().
-                // antMatchers("/oauth/token").permitAll().
-                        anyRequest().authenticated().and().
-                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().
-                csrf().disable();
-        // @formatter:on
+                authorizeRequests()
+                // .antMatchers("/oauth/token").permitAll().
+                .anyRequest().authenticated()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().cors()
+                .and().csrf().disable();
     }
 
 
