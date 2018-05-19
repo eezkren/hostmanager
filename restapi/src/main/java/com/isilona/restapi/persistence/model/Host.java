@@ -1,11 +1,10 @@
 package com.isilona.restapi.persistence.model;
 
+import com.google.common.base.MoreObjects;
 import com.isilona.common.persistence.model.INameableEntity;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Host implements INameableEntity {
@@ -53,36 +52,30 @@ public class Host implements INameableEntity {
         this.ip = ip;
     }
 
+    //
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-
         if (o == null || getClass() != o.getClass()) return false;
-
         Host host = (Host) o;
-
-        return new EqualsBuilder()
-                .append(id, host.id)
-                .append(name, host.name)
-                .append(ip, host.ip)
-                .isEquals();
+        return Objects.equals(id, host.id) &&
+                Objects.equals(name, host.name) &&
+                Objects.equals(ip, host.ip);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(id)
-                .append(name)
-                .append(ip)
-                .toHashCode();
+
+        return Objects.hash(id, name, ip);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("id", id)
-                .append("name", name)
-                .append("ip", ip)
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("name", name)
+                .add("ip", ip)
                 .toString();
     }
 }

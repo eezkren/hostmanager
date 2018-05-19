@@ -1,9 +1,10 @@
 package com.isilona.auth.model;
 
+import com.google.common.base.MoreObjects;
 import com.isilona.common.persistence.model.INameableEntity;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -17,11 +18,14 @@ public class Role implements INameableEntity {
     @Column(unique = true, nullable = false)
     private String name;
 
-    // @formatter:off
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")}, inverseJoinColumns = {@JoinColumn(name = "PRIV_ID", referencedColumnName = "PRIV_ID")})
+    @JoinTable(
+            joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRIV_ID", referencedColumnName = "PRIV_ID")}
+    )
     private Set<Privilege> privileges;
-    // @formatter:on
+
 
     public Role() {
         super();
@@ -69,34 +73,29 @@ public class Role implements INameableEntity {
 
     //
 
+
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(id, role.id) &&
+                Objects.equals(name, role.name) &&
+                Objects.equals(privileges, role.privileges);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final Role other = (Role) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+    public int hashCode() {
+
+        return Objects.hash(id, name, privileges);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("name", name).toString();
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("name", name)
+                .add("privileges", privileges)
+                .toString();
     }
-
 }

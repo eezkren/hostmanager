@@ -1,15 +1,13 @@
 package com.isilona.auth.model;
 
+import com.google.common.base.MoreObjects;
 import com.isilona.common.persistence.model.INameableEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Account implements UserDetails, INameableEntity {
@@ -174,33 +172,33 @@ public class Account implements UserDetails, INameableEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Account account = (Account) o;
-
-        if (accountNonExpired != account.accountNonExpired) return false;
-        if (accountNonLocked != account.accountNonLocked) return false;
-        if (credentialsNonExpired != account.credentialsNonExpired) return false;
-        if (enabled != account.enabled) return false;
-        if (id != null ? !id.equals(account.id) : account.id != null) return false;
-        if (username != null ? !username.equals(account.username) : account.username != null) return false;
-        if (name != null ? !name.equals(account.name) : account.name != null) return false;
-        if (email != null ? !email.equals(account.email) : account.email != null) return false;
-        if (password != null ? !password.equals(account.password) : account.password != null) return false;
-        return roles != null ? roles.equals(account.roles) : account.roles == null;
+        return accountNonExpired == account.accountNonExpired &&
+                accountNonLocked == account.accountNonLocked &&
+                credentialsNonExpired == account.credentialsNonExpired &&
+                enabled == account.enabled &&
+                Objects.equals(id, account.id) &&
+                Objects.equals(username, account.username) &&
+                Objects.equals(name, account.name) &&
+                Objects.equals(email, account.email) &&
+                Objects.equals(password, account.password) &&
+                Objects.equals(roles, account.roles);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (roles != null ? roles.hashCode() : 0);
-        result = 31 * result + (accountNonExpired ? 1 : 0);
-        result = 31 * result + (accountNonLocked ? 1 : 0);
-        result = 31 * result + (credentialsNonExpired ? 1 : 0);
-        result = 31 * result + (enabled ? 1 : 0);
-        return result;
+        return Objects.hash(id, username, name, email, password, roles,
+                accountNonExpired, accountNonLocked, credentialsNonExpired, enabled);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("username", username)
+                .add("name", name)
+                .add("email", email)
+                .add("password", password)
+                .toString();
     }
 }
