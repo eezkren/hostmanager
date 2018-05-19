@@ -42,8 +42,7 @@ public abstract class ResourceCreatedDiscoverabilityListener implements Applicat
 
     protected String calculatePathToResource(final Class clazz) {
         final String resourceName = uriMapper.getUriBase(clazz);
-        final String path = getBase() + resourceName + "/{id}";
-        return path;
+        return getBase() + resourceName + "/{id}";
     }
 
     protected abstract String getBase();

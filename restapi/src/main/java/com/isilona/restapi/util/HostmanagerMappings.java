@@ -18,6 +18,10 @@ public final class HostmanagerMappings {
         public static final String ROLE = "role";
         public static final String HOST = "host";
 
+        private Singular() {
+            throw new IllegalStateException("Utility class");
+        }
+
     }
 
 

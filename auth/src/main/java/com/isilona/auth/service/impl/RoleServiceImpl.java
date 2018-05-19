@@ -29,22 +29,6 @@ public class RoleServiceImpl extends AbstractService<Role> implements IRoleServi
         return getDao().findByName(name);
     }
 
-    // create
-
-    @Override
-    public Role create(final Role entity) {
-        /*
-         * final long id = IdUtil.randomPositiveLong(); entity.setId( id );
-         */
-
-        /*
-         * final List< Privilege > associationsTemp = Lists.newArrayList( entity.getPrivileges() ); entity.getPrivileges().clear(); for( final Privilege privilege : associationsTemp ){ entity.getPrivileges().add(
-         * associationDao.findByName( privilege.getName() ) ); }
-         */
-
-        return super.create(entity);
-    }
-
     // Spring
 
     @Override

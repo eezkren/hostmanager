@@ -70,11 +70,10 @@ public class HostmanagerPersistenceJpaConfig {
 
     final Properties additionalProperties() {
         final Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto", "create-drop"));
-        hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
-
-        // setProperty("hibernate.hbm2ddl.auto", hibernateHbm2ddlAuto);
-        // setProperty("hibernate.ejb.naming_strategy", org.hibernate.cfg.ImprovedNamingStrategy.class.getName());
+        hibernateProperties.setProperty(
+                "hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto", "create-drop"));
+        hibernateProperties.setProperty(
+                "hibernate.dialect", env.getProperty("hibernate.dialect"));
         return hibernateProperties;
     }
 

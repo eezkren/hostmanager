@@ -57,33 +57,6 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
         clients.jdbc(dataSource);
     }
 
-//    @Value("${security.oauth2.resource.id}")
-//    private String resourceId;
-//
-//    @Override
-//    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-//        clients
-//                .inMemory()
-//
-//                .withClient("trusted-app")
-//                .authorizedGrantTypes("client_credentials", "password", "refresh_token")
-////                .authorities(Role.ROLE_TRUSTED_CLIENT.toString())
-//                .scopes("read", "write")
-//                .resourceIds(resourceId)
-//                .accessTokenValiditySeconds(10)
-//                .refreshTokenValiditySeconds(30000)
-//                .secret("{noop}secret")
-//                .and()
-//                .withClient("register-app")
-//                .authorizedGrantTypes("client_credentials")
-////                .authorities(Role.ROLE_REGISTER.toString())
-//                .scopes("registerUser")
-//                .accessTokenValiditySeconds(10)
-//                .refreshTokenValiditySeconds(10)
-//                .resourceIds(resourceId)
-//                .secret("{noop}secret");
-//    }
-
     @Bean
     @Primary
     public DefaultTokenServices tokenServices() {
