@@ -1,10 +1,10 @@
 package com.isilona.restapi.web.controller;
 
-import com.isilona.restapi.persistence.model.Host;
-import com.isilona.restapi.service.IHostService;
 import com.isilona.common.util.QueryConstants;
 import com.isilona.common.web.controller.AbstractController;
 import com.isilona.common.web.controller.ISortingController;
+import com.isilona.restapi.persistence.model.Host;
+import com.isilona.restapi.service.IHostService;
 import com.isilona.restapi.util.HostmanagerMappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,8 +36,14 @@ public class HostRecordController extends AbstractController<Host> implements IS
     @RequestMapping(params = {QueryConstants.PAGE, QueryConstants.SIZE, QueryConstants.SORT_BY}, method = RequestMethod.GET)
     @ResponseBody
 //    @Secured(Privileges.ROLE_HOST_RECORD_READ)
-    public List<Host> findAllPaginatedAndSorted(@RequestParam(value = QueryConstants.PAGE) final int page, @RequestParam(value = QueryConstants.SIZE) final int size, @RequestParam(value = QueryConstants.SORT_BY) final String sortBy,
-                                                @RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+    public List<Host> findAllPaginatedAndSorted(
+            @RequestParam(value = QueryConstants.PAGE) final int page,
+            @RequestParam(value = QueryConstants.SIZE) final int size,
+            @RequestParam(value = QueryConstants.SORT_BY) final String sortBy,
+            @RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder,
+            final UriComponentsBuilder uriBuilder,
+            final HttpServletResponse response
+    ) {
         return findPaginatedAndSortedInternal(page, size, sortBy, sortOrder, uriBuilder, response);
     }
 
@@ -45,7 +51,12 @@ public class HostRecordController extends AbstractController<Host> implements IS
     @RequestMapping(params = {QueryConstants.PAGE, QueryConstants.SIZE}, method = RequestMethod.GET)
     @ResponseBody
 //    @Secured(Privileges.ROLE_HOST_RECORD_READ)
-    public List<Host> findAllPaginated(@RequestParam(value = QueryConstants.PAGE) final int page, @RequestParam(value = QueryConstants.SIZE) final int size, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+    public List<Host> findAllPaginated(
+            @RequestParam(value = QueryConstants.PAGE) final int page,
+            @RequestParam(value = QueryConstants.SIZE) final int size,
+            final UriComponentsBuilder uriBuilder,
+            final HttpServletResponse response
+    ) {
         return findPaginatedInternal(page, size, uriBuilder, response);
     }
 
@@ -53,7 +64,10 @@ public class HostRecordController extends AbstractController<Host> implements IS
     @RequestMapping(params = {QueryConstants.SORT_BY}, method = RequestMethod.GET)
     @ResponseBody
 //    @Secured(Privileges.ROLE_HOST_RECORD_READ)
-    public List<Host> findAllSorted(@RequestParam(value = QueryConstants.SORT_BY) final String sortBy, @RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder) {
+    public List<Host> findAllSorted(
+            @RequestParam(value = QueryConstants.SORT_BY) final String sortBy,
+            @RequestParam(value = QueryConstants.SORT_ORDER) final String sortOrder
+    ) {
         return findAllSortedInternal(sortBy, sortOrder);
     }
 
@@ -61,7 +75,11 @@ public class HostRecordController extends AbstractController<Host> implements IS
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
 //    @Secured(Privileges.ROLE_HOST_RECORD_READ)
-    public List<Host> findAll(final HttpServletRequest request, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+    public List<Host> findAll(
+            final HttpServletRequest request,
+            final UriComponentsBuilder uriBuilder,
+            final HttpServletResponse response
+    ) {
         return findAllInternal(request, uriBuilder, response);
     }
 
@@ -70,8 +88,12 @@ public class HostRecordController extends AbstractController<Host> implements IS
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
 //    @Secured(Privileges.ROLE_HOST_RECORD_READ)
-    public Host findOne(@PathVariable("id") final Long id) {
-        return findOneInternal(id);
+    public Host findOne(
+            @PathVariable("id") final Long id,
+            final UriComponentsBuilder uriBuilder,
+            final HttpServletResponse response
+    ) {
+        return findOneInternal(id, uriBuilder, response);
     }
 
     // find - one by name
@@ -79,7 +101,9 @@ public class HostRecordController extends AbstractController<Host> implements IS
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
 //    @Secured(Privileges.ROLE_HOST_RECORD_READ)
-    public Host findOneByName(@RequestParam("name") final String name) {
+    public Host findOneByName(
+            @RequestParam("name") final String name
+    ) {
         return service.findByName(name);
     }
 
@@ -87,7 +111,11 @@ public class HostRecordController extends AbstractController<Host> implements IS
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody @Valid final Host resource, final UriComponentsBuilder uriBuilder, final HttpServletResponse response) {
+    public void create(
+            @RequestBody @Valid final Host resource,
+            final UriComponentsBuilder uriBuilder,
+            final HttpServletResponse response
+    ) {
         createInternal(resource, uriBuilder, response);
     }
 
@@ -96,7 +124,10 @@ public class HostRecordController extends AbstractController<Host> implements IS
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
 //    @Secured(Privileges.ROLE_HOST_RECORD_WRITE)
-    public void update(@PathVariable("id") final Long id, @RequestBody @Valid final Host resource) {
+    public void update(
+            @PathVariable("id") final Long id,
+            @RequestBody @Valid final Host resource
+    ) {
         updateInternal(id, resource);
     }
 
@@ -105,7 +136,9 @@ public class HostRecordController extends AbstractController<Host> implements IS
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
 //    @Secured(Privileges.ROLE_HOST_RECORD_WRITE)
-    public void delete(@PathVariable("id") final Long id) {
+    public void delete(
+            @PathVariable("id") final Long id
+    ) {
         deleteByIdInternal(id);
     }
 
