@@ -66,10 +66,8 @@ public class StartupLoggingComponent implements InitializingBean {
             logger.info("The {} doesn't have an explicit value; default value is = {}", propertyKey, propertyDefaultValue);
         }
 
-        if (acceptablePropertyValues != null) {
-            if (!acceptablePropertyValues.contains(propValue)) {
-                logger.warn("The property = {} has an invalid value = {}", propertyKey, propValue);
-            }
+        if (acceptablePropertyValues != null && !acceptablePropertyValues.contains(propValue)) {
+            logger.warn("The property = {} has an invalid value = {}", propertyKey, propValue);
         }
 
         if (propValue == null) {
