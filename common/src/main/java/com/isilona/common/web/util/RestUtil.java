@@ -8,7 +8,7 @@ import org.springframework.web.client.HttpStatusCodeException;
 public final class RestUtil {
 
     private RestUtil() {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException();
     }
 
     //

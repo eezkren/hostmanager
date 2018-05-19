@@ -8,7 +8,7 @@ public final class HostmanagerMappings {
     public static final String HOSTS = "hosts";
 
     private HostmanagerMappings() {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException();
     }
 
     public static final class Singular {
@@ -19,7 +19,7 @@ public final class HostmanagerMappings {
         public static final String HOST = "host";
 
         private Singular() {
-            throw new IllegalStateException("Utility class");
+            throw new IllegalStateException();
         }
 
     }

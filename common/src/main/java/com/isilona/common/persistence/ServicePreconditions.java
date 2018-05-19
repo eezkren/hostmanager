@@ -6,7 +6,7 @@ import com.isilona.common.persistence.exception.MyEntityNotFoundException;
 public final class ServicePreconditions {
 
     private ServicePreconditions() {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException();
     }
 
     // API

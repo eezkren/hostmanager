@@ -17,7 +17,7 @@ public final class HostmanagerConstants {
     // privileges
 
     private HostmanagerConstants() {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException();
     }
 
     public static final class Privileges {
@@ -33,7 +33,7 @@ public final class HostmanagerConstants {
         public static final String CAN_PRIVILEGE_WRITE = "ROLE_PRIVILEGE_WRITE";
 
         private Privileges() {
-            throw new IllegalStateException("Utility class");
+            throw new IllegalStateException();
         }
 
     }
@@ -47,7 +47,7 @@ public final class HostmanagerConstants {
         public static final String ROLE_USER = "ROLE_ENDUSER";
 
         private Roles() {
-            throw new IllegalStateException("Utility class");
+            throw new IllegalStateException();
         }
 
     }

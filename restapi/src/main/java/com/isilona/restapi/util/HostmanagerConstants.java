@@ -6,7 +6,7 @@ public final class HostmanagerConstants {
     public static final String DEV_HOST_NAME = "DEV";
 
     private HostmanagerConstants() {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException();
     }
 
 

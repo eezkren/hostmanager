@@ -8,7 +8,7 @@ public final class WebConstants {
     public static final String PATH_SEP = "/";
 
     private WebConstants() {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException();
     }
 
 }
