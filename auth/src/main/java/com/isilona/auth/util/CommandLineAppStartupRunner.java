@@ -38,8 +38,12 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... args) throws Exception {
-        logger.info("Application started with command-line arguments: {} . \n To kill this application, press Ctrl + C.", Arrays.toString(args));
+    public void run(String... args) {
+
+        if (logger.isInfoEnabled()) {
+            logger.info("Application started with command-line arguments: {} .", Arrays.toString(args));
+            logger.info("To kill this application, press Ctrl + C.");
+        }
 
 
         logger.info("Executing Setup");

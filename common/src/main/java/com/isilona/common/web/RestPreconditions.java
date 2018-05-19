@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 public final class RestPreconditions {
 
     private RestPreconditions() {
-        throw new AssertionError();
+        throw new IllegalStateException("Utility class");
     }
 
     // API

@@ -3,6 +3,7 @@ package com.isilona.restapi.persistence.setup;
 
 import com.isilona.restapi.persistence.model.Host;
 import com.isilona.restapi.service.IHostService;
+import com.isilona.restapi.util.HostmanagerConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,13 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     private IHostService hostService;
 
     @Override
-    public void run(String... args) throws Exception {
-        logger.info("Application started with command-line arguments: {} . \n To kill this application, press Ctrl + C.", Arrays.toString(args));
+    public void run(String... args) {
 
+
+        if (logger.isInfoEnabled()) {
+            logger.info("Application started with command-line arguments: {} .", Arrays.toString(args));
+            logger.info("To kill this application, press Ctrl + C.");
+        }
 
         logger.info("Executing Setup");
 
@@ -34,8 +39,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     // host records
     public void createHostRecords() {
-        createHostRecordIfNotexist("TEST", "192.168.0.1");
-        createHostRecordIfNotexist("DEV", "192.168.0.2");
+        createHostRecordIfNotexist(HostmanagerConstants.TEST_HOST_NAME, HostmanagerConstants.TEST_HOST_IP);
+        createHostRecordIfNotexist(HostmanagerConstants.DEV_HOST_NAME, HostmanagerConstants.DEV_HOST_IP);
     }
 
     void createHostRecordIfNotexist(String name, String ip) {

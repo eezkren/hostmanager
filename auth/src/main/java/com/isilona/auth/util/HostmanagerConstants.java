@@ -17,7 +17,7 @@ public final class HostmanagerConstants {
     // privileges
 
     private HostmanagerConstants() {
-        throw new AssertionError();
+        throw new IllegalStateException("Utility class");
     }
 
     public static final class Privileges {

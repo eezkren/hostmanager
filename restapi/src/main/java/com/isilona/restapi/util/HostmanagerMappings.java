@@ -8,7 +8,7 @@ public final class HostmanagerMappings {
     public static final String HOSTS = "hosts";
 
     private HostmanagerMappings() {
-        throw new AssertionError();
+        throw new IllegalStateException("Utility class");
     }
 
     public static final class Singular {
