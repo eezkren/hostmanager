@@ -5,7 +5,6 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.Serializable;
 
 /**
  * Event that is fired when a resource was created.
@@ -14,7 +13,7 @@ import java.io.Serializable;
  *
  * @param <T> Type of the result that is being handled (commonly Entities).
  */
-public final class AfterResourceCreatedEvent<T extends Serializable> extends ApplicationEvent {
+public final class AfterResourceCreatedEvent<T> extends ApplicationEvent {
     private final String idOfNewResource;
     private final HttpServletResponse response;
     private final UriComponentsBuilder uriBuilder;
