@@ -7,6 +7,7 @@ import com.isilona.restapi.util.HostmanagerConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,13 @@ import java.util.Arrays;
 @Component
 public class CommandLineAppStartupRunner implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(CommandLineAppStartupRunner.class);
+
+
+    @Value("${test.host.ip:192.168.0.1}")
+    String TEST_HOST_IP;
+
+    @Value("${dev.host.ip:192.168.0.2}")
+    String DEV_HOST_IP;
 
     @Autowired
     private IHostService hostService;
@@ -39,8 +47,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     // host records
     public void createHostRecords() {
-        createHostRecordIfNotexist(HostmanagerConstants.TEST_HOST_NAME, HostmanagerConstants.TEST_HOST_IP);
-        createHostRecordIfNotexist(HostmanagerConstants.DEV_HOST_NAME, HostmanagerConstants.DEV_HOST_IP);
+        createHostRecordIfNotexist(HostmanagerConstants.TEST_HOST_NAME, TEST_HOST_IP);
+        createHostRecordIfNotexist(HostmanagerConstants.DEV_HOST_NAME, DEV_HOST_IP);
     }
 
     void createHostRecordIfNotexist(String name, String ip) {
