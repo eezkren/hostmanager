@@ -20,10 +20,10 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
 
     @Value("${test.host.ip:192.168.0.1}")
-    String TEST_HOST_IP;
+    String testHostIP;
 
     @Value("${dev.host.ip:192.168.0.2}")
-    String DEV_HOST_IP;
+    String devHostIP;
 
     @Autowired
     private IHostService hostService;
@@ -47,8 +47,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     // host records
     public void createHostRecords() {
-        createHostRecordIfNotexist(HostmanagerConstants.TEST_HOST_NAME, TEST_HOST_IP);
-        createHostRecordIfNotexist(HostmanagerConstants.DEV_HOST_NAME, DEV_HOST_IP);
+        createHostRecordIfNotexist(HostmanagerConstants.TEST_HOST_NAME, testHostIP);
+        createHostRecordIfNotexist(HostmanagerConstants.DEV_HOST_NAME, devHostIP);
     }
 
     void createHostRecordIfNotexist(String name, String ip) {
