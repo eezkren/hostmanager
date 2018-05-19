@@ -1,13 +1,10 @@
 package com.isilona.common.web.listeners;
 
-
-import com.google.common.base.Preconditions;
 import com.google.common.net.HttpHeaders;
 import com.isilona.common.util.LinkUtil;
 import com.isilona.common.web.IUriMapper;
 import com.isilona.common.web.events.MultipleResourcesRetrievedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -15,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.isilona.common.web.WebConstants.PATH_SEP;
 
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"unchecked", "rawtypes"})
 @Component
-final class MultipleResourcesRetrievedDiscoverabilityListener implements ApplicationListener<MultipleResourcesRetrievedEvent> {
+final class MultipleResourcesRetrievedDiscoverabilityListener extends AbstractHostmanagerListener<MultipleResourcesRetrievedEvent> {
 
     @Autowired
     private IUriMapper uriMapper;
@@ -26,21 +23,17 @@ final class MultipleResourcesRetrievedDiscoverabilityListener implements Applica
         super();
     }
 
-    //
-
     @Override
-    public final void onApplicationEvent(final MultipleResourcesRetrievedEvent ev) {
-        Preconditions.checkNotNull(ev);
+    protected void addLinkHeader(MultipleResourcesRetrievedEvent ev) {
 
-        discoverOtherRetrievalOperations(ev.getUriBuilder(), ev.getResponse(), ev.getClazz());
-    }
+        final UriComponentsBuilder uriBuilder = ev.getUriBuilder();
+        final HttpServletResponse response = ev.getResponse();
+        final Class clazz = ev.getClazz();
 
-    @SuppressWarnings("unchecked")
-    final void discoverOtherRetrievalOperations(final UriComponentsBuilder uriBuilder, final HttpServletResponse response, final Class clazz) {
-        final String uriForResourceCreation = uriBuilder.path(PATH_SEP + uriMapper.getUriBase(clazz) + "/q=name=something").build().encode().toUriString();
+        final String uriForResourceCreation = uriBuilder.path(PATH_SEP + uriMapper.getUriBase(clazz) + "/search?name=something").build().encode().toUriString();
 
         final String linkHeaderValue = LinkUtil.createLinkHeader(uriForResourceCreation, LinkUtil.REL_COLLECTION);
         response.addHeader(HttpHeaders.LINK, linkHeaderValue);
-    }
 
+    }
 }

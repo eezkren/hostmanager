@@ -1,12 +1,9 @@
 package com.isilona.common.web.listeners;
 
-
-import com.google.common.base.Preconditions;
 import com.google.common.net.HttpHeaders;
 import com.isilona.common.web.IUriMapper;
 import com.isilona.common.web.events.PaginatedResultsRetrievedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -17,7 +14,7 @@ import static com.isilona.common.web.WebConstants.PATH_SEP;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 @Component
-class PaginatedResultsRetrievedDiscoverabilityListener implements ApplicationListener<PaginatedResultsRetrievedEvent> {
+class PaginatedResultsRetrievedDiscoverabilityListener extends AbstractHostmanagerListener<PaginatedResultsRetrievedEvent> {
 
     private static final String PAGE = "page";
 
@@ -30,17 +27,17 @@ class PaginatedResultsRetrievedDiscoverabilityListener implements ApplicationLis
 
     // API
 
-    @Override
-    public final void onApplicationEvent(final PaginatedResultsRetrievedEvent ev) {
-        Preconditions.checkNotNull(ev);
-
-        addLinkHeaderOnPagedResourceRetrieval(ev.getUriBuilder(), ev.getResponse(), ev.getClazz(), ev.getPage(), ev.getTotalPages(), ev.getPageSize());
-    }
-
-    //
-
     // - note: at this point, the URI is transformed into plural (added `s`) in a hardcoded way - this will change in the future
-    final void addLinkHeaderOnPagedResourceRetrieval(final UriComponentsBuilder uriBuilder, final HttpServletResponse response, final Class clazz, final int page, final int totalPages, final int pageSize) {
+    @Override
+    protected void addLinkHeader(final PaginatedResultsRetrievedEvent ev) {
+
+        final UriComponentsBuilder uriBuilder = ev.getUriBuilder();
+        final HttpServletResponse response = ev.getResponse();
+        final Class clazz = ev.getClazz();
+        final int page = ev.getPage();
+        final int totalPages = ev.getTotalPages();
+        final int pageSize = ev.getPageSize();
+
         plural(uriBuilder, clazz);
 
         final StringBuilder linkHeader = new StringBuilder();
@@ -69,39 +66,39 @@ class PaginatedResultsRetrievedDiscoverabilityListener implements ApplicationLis
         }
     }
 
-    final String constructNextPageUri(final UriComponentsBuilder uriBuilder, final int page, final int size) {
+    private String constructNextPageUri(final UriComponentsBuilder uriBuilder, final int page, final int size) {
         return uriBuilder.replaceQueryParam(PAGE, page + 1).replaceQueryParam("size", size).build().encode().toUriString();
     }
 
-    final String constructPrevPageUri(final UriComponentsBuilder uriBuilder, final int page, final int size) {
+    private String constructPrevPageUri(final UriComponentsBuilder uriBuilder, final int page, final int size) {
         return uriBuilder.replaceQueryParam(PAGE, page - 1).replaceQueryParam("size", size).build().encode().toUriString();
     }
 
-    final String constructFirstPageUri(final UriComponentsBuilder uriBuilder, final int size) {
+    private String constructFirstPageUri(final UriComponentsBuilder uriBuilder, final int size) {
         return uriBuilder.replaceQueryParam(PAGE, 0).replaceQueryParam("size", size).build().encode().toUriString();
     }
 
-    final String constructLastPageUri(final UriComponentsBuilder uriBuilder, final int totalPages, final int size) {
+    private String constructLastPageUri(final UriComponentsBuilder uriBuilder, final int totalPages, final int size) {
         return uriBuilder.replaceQueryParam(PAGE, totalPages).replaceQueryParam("size", size).build().encode().toUriString();
     }
 
-    final boolean hasNextPage(final int page, final int totalPages) {
+    private boolean hasNextPage(final int page, final int totalPages) {
         return page < totalPages - 1;
     }
 
-    final boolean hasPreviousPage(final int page) {
+    private boolean hasPreviousPage(final int page) {
         return page > 0;
     }
 
-    final boolean hasFirstPage(final int page) {
+    private boolean hasFirstPage(final int page) {
         return hasPreviousPage(page);
     }
 
-    final boolean hasLastPage(final int page, final int totalPages) {
+    private boolean hasLastPage(final int page, final int totalPages) {
         return totalPages > 1 && hasNextPage(page, totalPages);
     }
 
-    final void appendCommaIfNecessary(final StringBuilder linkHeader) {
+    private void appendCommaIfNecessary(final StringBuilder linkHeader) {
         if (linkHeader.length() > 0) {
             linkHeader.append(", ");
         }
@@ -109,7 +106,7 @@ class PaginatedResultsRetrievedDiscoverabilityListener implements ApplicationLis
 
     // template
 
-    protected void plural(final UriComponentsBuilder uriBuilder, final Class clazz) {
+    private void plural(final UriComponentsBuilder uriBuilder, final Class clazz) {
         final String resourceName = uriMapper.getUriBase(clazz);
         uriBuilder.path(PATH_SEP + resourceName);
     }
