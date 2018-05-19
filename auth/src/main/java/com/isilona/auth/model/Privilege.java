@@ -2,21 +2,14 @@ package com.isilona.auth.model;
 
 
 import com.google.common.base.MoreObjects;
-import com.isilona.common.persistence.model.INameableEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.util.Objects;
 
 @Entity
-public class Privilege implements INameableEntity {
+public class Privilege extends NamedBaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "PRIV_ID")
-    private Long id;
-
-    @Column(unique = true, nullable = false)
-    private String name;
 
     @Column
     private String description;
@@ -31,25 +24,6 @@ public class Privilege implements INameableEntity {
     }
 
     // API
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(final Long idToSet) {
-        id = idToSet;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String nameToSet) {
-        name = nameToSet;
-    }
 
     public String getDescription() {
         return description;

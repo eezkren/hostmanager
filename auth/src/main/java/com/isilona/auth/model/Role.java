@@ -1,28 +1,18 @@
 package com.isilona.auth.model;
 
 import com.google.common.base.MoreObjects;
-import com.isilona.common.persistence.model.INameableEntity;
 
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Role implements INameableEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ROLE_ID")
-    private Long id;
-
-    @Column(unique = true, nullable = false)
-    private String name;
-
+public class Role extends NamedBaseEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PRIV_ID", referencedColumnName = "PRIV_ID")}
+            joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRIV_ID", referencedColumnName = "ID")}
     )
     private Set<Privilege> privileges;
 
@@ -44,25 +34,6 @@ public class Role implements INameableEntity {
 
     // API
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(final Long idToSet) {
-        id = idToSet;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String nameToSet) {
-        name = nameToSet;
-    }
-
     public Set<Privilege> getPrivileges() {
         return privileges;
     }
@@ -72,7 +43,6 @@ public class Role implements INameableEntity {
     }
 
     //
-
 
     @Override
     public boolean equals(Object o) {

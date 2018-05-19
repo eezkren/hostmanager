@@ -1,7 +1,6 @@
 package com.isilona.auth.model;
 
 import com.google.common.base.MoreObjects;
-import com.isilona.common.persistence.model.INameableEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,18 +9,10 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class Account implements UserDetails, INameableEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USER_ID")
-    private Long id;
+public class Account extends NamedBaseEntity implements UserDetails {
 
     @Column(unique = true)
     private String username;
-
-    @Column(unique = true, nullable = false)
-    private String name;
 
     @Column(unique = true, nullable = true)
     private String email;
@@ -29,9 +20,11 @@ public class Account implements UserDetails, INameableEntity {
     @Column(nullable = false)
     private String password;
 
-    // @formatter:off
     @ManyToMany( /* cascade = { CascadeType.REMOVE }, */fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")}, inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")})
+    @JoinTable(
+            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")}
+    )
     private Set<Role> roles;
 
     @Column
@@ -46,7 +39,6 @@ public class Account implements UserDetails, INameableEntity {
     @Column
     private boolean enabled;
 
-    // @formatter:on
     public Account() {
         super();
 
@@ -56,9 +48,10 @@ public class Account implements UserDetails, INameableEntity {
         this.enabled = true;
     }
 
-    public Account(final String nameToSet, final String passwordToSet, final Set<Role> rolesToSet) {
+    public Account(final String usernameToSet, final String nameToSet, final String passwordToSet, final Set<Role> rolesToSet) {
         this();
 
+        username = usernameToSet;
         name = nameToSet;
         password = passwordToSet;
         roles = rolesToSet;
@@ -67,31 +60,12 @@ public class Account implements UserDetails, INameableEntity {
     // API
 
     @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(final Long idToSet) {
-        id = idToSet;
-    }
-
-    @Override
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String nameToSet) {
-        name = nameToSet;
     }
 
     public String getEmail() {
@@ -164,7 +138,7 @@ public class Account implements UserDetails, INameableEntity {
         List<GrantedAuthority> authorities = new ArrayList<>();
         roles.forEach(role ->
                 role.getPrivileges().forEach(privilege ->
-                        authorities.add(new SimpleGrantedAuthority(privilege.toString()))));
+                        authorities.add(new SimpleGrantedAuthority(privilege.getName()))));
         return authorities;
     }
 
