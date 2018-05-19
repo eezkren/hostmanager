@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 
 /**
  * Event that is fired when a paginated search is performed.
@@ -12,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @param <T> Type of the result that is being handled (commonly Entities).
  */
-public final class PaginatedResultsRetrievedEvent<T> extends ApplicationEvent {
-    private final UriComponentsBuilder uriBuilder;
-    private final HttpServletResponse response;
+public final class PaginatedResultsRetrievedEvent<T extends Serializable> extends ApplicationEvent {
+    transient private final UriComponentsBuilder uriBuilder;
+    transient private final HttpServletResponse response;
     private final int page;
     private final int totalPages;
     private final int pageSize;
