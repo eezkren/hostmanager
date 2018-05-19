@@ -52,8 +52,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     }
 
     private void createPrivileges() {
-        createPrivilegeIfNotExisting(Privileges.CAN_PATIENT_RECORD_READ);
-        createPrivilegeIfNotExisting(Privileges.CAN_PATIENT_RECORD_WRITE);
 
         createPrivilegeIfNotExisting(Privileges.CAN_PRIVILEGE_READ);
         createPrivilegeIfNotExisting(Privileges.CAN_PRIVILEGE_WRITE);
@@ -64,8 +62,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         createPrivilegeIfNotExisting(Privileges.CAN_USER_READ);
         createPrivilegeIfNotExisting(Privileges.CAN_USER_WRITE);
 
-        createPrivilegeIfNotExisting(Privileges.CAN_USER_READ);
-        createPrivilegeIfNotExisting(Privileges.CAN_USER_WRITE);
     }
 
     final void createPrivilegeIfNotExisting(final String name) {
@@ -79,8 +75,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     // Role
 
     private void createRoles() {
-        final Privilege canPatientRecordRead = privilegeService.findByName(Privileges.CAN_PATIENT_RECORD_READ);
-        final Privilege canPatientRecordWrite = privilegeService.findByName(Privileges.CAN_PATIENT_RECORD_WRITE);
         final Privilege canPrivilegeRead = privilegeService.findByName(Privileges.CAN_PRIVILEGE_READ);
         final Privilege canPrivilegeWrite = privilegeService.findByName(Privileges.CAN_PRIVILEGE_WRITE);
         final Privilege canRoleRead = privilegeService.findByName(Privileges.CAN_ROLE_READ);
@@ -97,8 +91,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
         createRoleIfNotExisting(Roles.ROLE_USER, Sets.<Privilege>newHashSet(canUserRead, canRoleRead, canPrivilegeRead));
         createRoleIfNotExisting(Roles.ROLE_ADMIN, Sets.<Privilege>newHashSet(canUserRead, canUserWrite, canRoleRead, canRoleWrite, canPrivilegeRead, canPrivilegeWrite));
-        createRoleIfNotExisting(Roles.ROLE_NURSE, Sets.<Privilege>newHashSet(canPatientRecordRead));
-        createRoleIfNotExisting(Roles.ROLE_DOCTOR, Sets.<Privilege>newHashSet(canPatientRecordRead, canPatientRecordWrite));
 
     }
 
@@ -116,17 +108,23 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     final void createUsers() {
         final Role roleAdmin = roleService.findByName(Roles.ROLE_ADMIN);
         final Role roleUser = roleService.findByName(Roles.ROLE_USER);
-        final Role roleDoctor = roleService.findByName(Roles.ROLE_DOCTOR);
-        final Role roleNurse = roleService.findByName(Roles.ROLE_NURSE);
 
-        createUserIfNotExisting(HostmanagerConstants.ADMIN_EMAIL, passwordEncoder.encode(HostmanagerConstants.ADMIN_PASS), Sets.<Role>newHashSet(roleAdmin, roleDoctor));
-        createUserIfNotExisting(HostmanagerConstants.USER_EMAIL, passwordEncoder.encode(HostmanagerConstants.USER_PASS), Sets.<Role>newHashSet(roleUser, roleNurse));
+        createUserIfNotExisting(
+                HostmanagerConstants.ADMIN_USERNAME,
+                HostmanagerConstants.ADMIN_EMAIL,
+                passwordEncoder.encode(HostmanagerConstants.ADMIN_PASS),
+                Sets.<Role>newHashSet(roleAdmin));
+        createUserIfNotExisting(
+                HostmanagerConstants.USER_USERNAME,
+                HostmanagerConstants.USER_EMAIL,
+                passwordEncoder.encode(HostmanagerConstants.USER_PASS),
+                Sets.<Role>newHashSet(roleUser));
     }
 
-    final void createUserIfNotExisting(final String loginName, final String pass, final Set<Role> roles) {
+    final void createUserIfNotExisting(final String username, final String loginName, final String pass, final Set<Role> roles) {
         final Account entityByName = accountService.findByName(loginName);
         if (entityByName == null) {
-            final Account entity = new Account(loginName, pass, roles);
+            final Account entity = new Account(username, loginName, pass, roles);
             accountService.create(entity);
         }
     }
