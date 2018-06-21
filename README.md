@@ -1,6 +1,10 @@
 # hostmanager
-simple spring boot / angular / clarity giving ability for CRUD operation over Host entity
-it consists 3 projects
+Java Spring Boot application and a Single-Page application (SPA) in Angular 5 and Clarity [1] as following:
+* The application connects with a PostgresSQL database to read/write data on a
+table with two columns, one containing an IP address and the other a hostname
+* The application has a REST web interface so that users interact with these
+data (CRUD model implementation)
+* The SPA consumes the REST interface, so that users interact with the data
 
 #### common 
 - entity interfaces
